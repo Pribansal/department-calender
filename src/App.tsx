@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import eventImage1 from './assets/WhatsApp Image 2025-09-15 at 13.33.45.jpeg';
+import eventImage2 from './assets/pic.jpg';
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Plus } from 'lucide-react';
 
 interface Event {
@@ -37,15 +38,15 @@ function App() {
     },
     {
       id: 2,
-      title: "Digital Marketing Trends 2025",
-      date: "22nd September 2025",
-      time: "3:00 PM to 4:30 PM",
-      venue: "Auditorium Hall A",
-      speaker: "Dr. Sarah Chen, Digital Marketing Expert",
-      posterUrl: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=600",
+      title: "Mind, Market & Ministries",
+      date: "27th September 2025",
+      time: "11:30 AM to 1:30 PM",
+      venue: "Room 6163, NAB, BITS Pilani, Pilani Campus",
+      speaker: " Mr. Kunal Rahar, Deputy Commissioner, Bikaner Development Authority (Govt. of Rajasthan)",
+      posterUrl: eventImage2,
       category: "Industry Connect Series",
-      startDateTime: "20250922T150000Z",
-      endDateTime: "20250922T163000Z"
+      startDateTime: "20250927T113000Z",
+      endDateTime: "20250922T133000Z"
     },
     {
       id: 3,
