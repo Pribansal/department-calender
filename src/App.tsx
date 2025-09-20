@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import eventImage1 from './assets/WhatsApp Image 2025-09-15 at 13.33.45.jpeg';
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Plus } from 'lucide-react';
 
 interface Event {
@@ -29,7 +30,7 @@ function App() {
       time: "6:00 PM to 7:00 PM",
       venue: "Virtual Webinar",
       speaker: "Mr. Ramesh Pattnaik, VP Sales & BD, PMI Pune Chapter",
-      posterUrl: "/src/assets/WhatsApp Image 2025-09-15 at 13.33.45.jpeg",
+      posterUrl: eventImage1,
       category: "Kaleidoscope Webinar Series",
       startDateTime: "20250916T180000Z",
       endDateTime: "20250916T190000Z"
