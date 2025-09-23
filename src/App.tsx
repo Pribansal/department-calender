@@ -87,19 +87,19 @@ function App() {
   };
 
 
-  // Carousel state for hero section
-  const eventImages = events.map(e => e.posterUrl);
+// Carousel state for hero section (use images from assets/autoscroll)
+  const autoScrollImages = [autoImg1, autoImg2];
   const [carouselIndex, setCarouselIndex] = useState(0);
   const carouselInterval = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     carouselInterval.current = setInterval(() => {
-      setCarouselIndex(idx => (idx + 1) % eventImages.length);
+      setCarouselIndex(idx => (idx + 1) % autoScrollImages.length);
     }, 3000); // Change image every 3 seconds
     return () => {
       if (carouselInterval.current) clearInterval(carouselInterval.current);
     };
-  }, [eventImages.length]);
+  }, [autoScrollImages.length]);
 
   // Filter events by selected month
   const filteredEvents = events.filter(event => {
@@ -113,13 +113,13 @@ function App() {
       {/* Hero Section */}
 
       <div className="relative bg-gradient-to-r from-blue-900 to-blue-800 text-white overflow-hidden">
-        {/* Carousel Images */}
+        {/* Carousel Images from assets/autoscroll */}
         <div className="absolute inset-0 w-full h-full z-0">
-          {eventImages.map((img, idx) => (
+          {autoScrollImages.map((img, idx) => (
             <img
               key={img}
               src={img}
-              alt={`Event ${idx + 1}`}
+              alt={`Autoscroll ${idx + 1}`}
               className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ${carouselIndex === idx ? 'opacity-60' : 'opacity-0'}`}
               style={{ zIndex: carouselIndex === idx ? 1 : 0 }}
             />
