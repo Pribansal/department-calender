@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import eventImage1 from './assets/WhatsApp Image 2025-09-15 at 13.33.45.jpeg';
-import eventImage2 from './assets/pic.jpg';
+import autoImg1 from './assets/autoscroll/images.jpg';
+import autoImg2 from './assets/autoscroll/life-bits-44.jpeg';
 import { Calendar as CalendarIcon, MapPin, Clock, Users, Plus } from 'lucide-react';
 
 interface Event {
