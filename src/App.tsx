@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import eventImage1 from './assets/WhatsApp Image 2025-09-15 at 13.33.45.jpeg';
 import mainVideo from './assets/MAIN_VIDEO.mp4';
-import { Calendar as CalendarIcon, MapPin, Clock, Users, Plus } from 'lucide-react';
 
 interface Event {
   id: number;
@@ -22,8 +21,10 @@ function App() {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
   const today = new Date();
-  const [currentMonth, setCurrentMonth] = useState(months[today.getMonth()]);
-  const [currentYear] = useState(today.getFullYear());
+  const [calendarMonthIdx, setCalendarMonthIdx] = useState(today.getMonth());
+  const [calendarYear, setCalendarYear] = useState(today.getFullYear());
+  const [selectedDate, setSelectedDate] = useState(new Date(calendarYear, calendarMonthIdx, today.getDate()));
+  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
 
   const events: Event[] = [
     {
@@ -137,16 +138,6 @@ function App() {
     }
   ];
 
-  // Filter events by selected month
-  const filteredEvents = events.filter(event => {
-    const [, month, year] = event.date.split(' ');
-    return month === currentMonth && year === String(currentYear);
-  });
-
-  // Calendar logic
-  const [calendarMonthIdx, setCalendarMonthIdx] = useState(today.getMonth());
-  const [calendarYear, setCalendarYear] = useState(today.getFullYear());
-  const [selectedDate, setSelectedDate] = useState(new Date(calendarYear, calendarMonthIdx, today.getDate()));
   function getDaysInMonth(year: number, month: number) {
     return new Date(year, month + 1, 0).getDate();
   }
@@ -159,19 +150,9 @@ function App() {
   for (let i = 0; i < firstDay; i++) calendarDays.push(null);
   for (let d = 1; d <= daysInMonth; d++) calendarDays.push(new Date(calendarYear, calendarMonthIdx, d));
 
-  // Get event dates for highlighting
-  const eventDateSet = new Set(events.map(ev => {
-    const [day, monthStr, yearStr] = ev.date.split(' ');
-    const mIdx = months.indexOf(monthStr);
-    return new Date(Number(yearStr), mIdx, Number(day)).toDateString();
-  }));
-
   function generateGoogleCalendarUrl(event: Event) {
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.startDateTime}/${event.endDateTime}&details=${encodeURIComponent(event.speaker || '')}&location=${encodeURIComponent(event.venue)}&sf=true&output=xml`;
   }
-
-  // Add state for selected event tab
-  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -252,7 +233,7 @@ function App() {
                   <span className="font-bold">{date.getDate()}</span>
                   {isEvent && (
                     <span className="flex gap-1 mt-2">
-                      {eventsForDate.slice(0,3).map((ev, i) => (
+                      {eventsForDate.slice(0,3).map(ev => (
                         <span key={ev.id} className="inline-block w-2 h-2 rounded-full bg-blue-900"></span>
                       ))}
                       {eventsForDate.length > 3 && (
@@ -273,7 +254,6 @@ function App() {
           <div className="space-y-3">
             {(() => {
               const eventsForSelected = events.filter(ev => {
-                // Robustly extract day number from event.date (e.g., '16th September 2025')
                 const match = ev.date.match(/(\d+)/);
                 if (!match) return false;
                 const day = Number(match[1]);
